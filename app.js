@@ -86,4 +86,6 @@ function removeClasses() {
     treeContainer.classList.remove('face');
     shedContainer.classList.remove('face');
     boulderContainer.classList.remove('face');
+    riverContainer.classList.remove('face');
+    roadContainer.classList.remove('face');
 }
