@@ -2,10 +2,14 @@
 const shedButton = document.getElementById('shed-button');
 const treeButton = document.getElementById('tree-button');
 const boulderButton = document.getElementById('boulder-button');
+const riverButton = document.getElementById('river-button');
+const roadButton = document.getElementById('road-button');
 
 const shedContainer = document.getElementById('shed-container');
 const treeContainer = document.getElementById('tree-container');
 const boulderContainer = document.getElementById('boulder-container');
+const riverContainer = document.getElementById('river-container');
+const roadContainer = document.getElementById('road-container');
 
 const totalEl = document.getElementById('total');
 const lossesEl = document.getElementById('losses');
@@ -42,8 +46,18 @@ boulderButton.addEventListener('click', () => {
     boulderEl.textContent = boulderGuesses;
 });
 
+riverButton.addEventListener('click', () => {
+    const correctSpot = getRandomHidingSpot();
+    handleGuess('river', correctSpot);
+});
+
+roadButton.addEventListener('click', () => {
+    const correctSpot = getRandomHidingSpot();
+    handleGuess('road', correctSpot);
+});
+
 function getRandomHidingSpot() {
-    const hidingPlaces = ['tree', 'boulder', 'shed'];
+    const hidingPlaces = ['tree', 'boulder', 'shed', 'river', 'road'];
     const index = Math.floor(Math.random() * hidingPlaces.length);
     const correctSpot = hidingPlaces[index];
     return correctSpot;
