@@ -2,65 +2,90 @@
 const shedButton = document.getElementById('shed-button');
 const treeButton = document.getElementById('tree-button');
 const boulderButton = document.getElementById('boulder-button');
+const riverButton = document.getElementById('river-button');
+const roadButton = document.getElementById('road-button');
 
 const shedContainer = document.getElementById('shed-container');
 const treeContainer = document.getElementById('tree-container');
 const boulderContainer = document.getElementById('boulder-container');
+const riverContainer = document.getElementById('river-container');
+const roadContainer = document.getElementById('road-container');
 
 const totalEl = document.getElementById('total');
 const lossesEl = document.getElementById('losses');
 const winsEl = document.getElementById('wins');
-
+const treeEl = document.getElementById('tree-guesses');
+const shedEl = document.getElementById('shed-guesses');
+const boulderEl = document.getElementById('boulder-guesses');
 
 let correctGuesses = 0;
 let totalGuesses = 0;
+let incorrectGuesses = 0;
+let treeGuesses = 0;
+let shedGuesses = 0;
+let boulderGuesses = 0;
 
 shedButton.addEventListener('click', () => {
-    // get a random item to call the 'correct spot'
-
-    // call the handleGuess function with the correct parameters (the user's guess and the "correct" hiding place) to do DOM work
+    const correctSpot = getRandomHidingSpot();
+    handleGuess('shed', correctSpot);
+    shedGuesses++;
+    shedEl.textContent = shedGuesses;
 });
 
 treeButton.addEventListener('click', () => {
-    // get a random item to call the 'correct spot'
-
-    // call the handleGuess function with the correct parameters (the user's guess and the "correct" hiding place) to do DOM work
+    const correctSpot = getRandomHidingSpot();
+    handleGuess('tree', correctSpot);
+    treeGuesses++;
+    treeEl.textContent = treeGuesses;
 });
 
 boulderButton.addEventListener('click', () => {
-    // get a random item to call the 'correct spot'
-
-    // call the handleGuess function with the correct parameters (the user's guess and the "correct" hiding place) to do DOM work
+    const correctSpot = getRandomHidingSpot();
+    handleGuess('boulder', correctSpot);
+    boulderGuesses++;
+    boulderEl.textContent = boulderGuesses;
 });
 
+riverButton.addEventListener('click', () => {
+    const correctSpot = getRandomHidingSpot();
+    handleGuess('river', correctSpot);
+});
+
+roadButton.addEventListener('click', () => {
+    const correctSpot = getRandomHidingSpot();
+    handleGuess('road', correctSpot);
+});
 
 function getRandomHidingSpot() {
-    // initialize state
-    const hidingPlaces = [
-        'tree',
-        'shed',
-        'boulder'
-    ];
-
+    const hidingPlaces = ['tree', 'boulder', 'shed', 'river', 'road'];
     const index = Math.floor(Math.random() * hidingPlaces.length);
-
-    // use the random index above and the array of hidingPlaces to get a random hiding place string
-
-    // return that random hiding place string
+    const correctSpot = hidingPlaces[index];
+    return correctSpot;
 }
 
 function handleGuess(userGuess, correctSpot) {
-    // first, right after clicking, we need to remove the emoiji face from the previous hiding place that way we don't end up with more than one emoji face
+    removeClasses();
 
-    // we can do that by removing the .face class from all containers
+    if (correctSpot === userGuess) {
+        correctGuesses++;
+    } else {
+        incorrectGuesses++;
+    }
+    totalGuesses++;
 
-    // then increment the guesses
+    winsEl.textContent = correctGuesses;
+    lossesEl.textContent = incorrectGuesses;
+    totalEl.textContent = totalGuesses;
+    const correctContainer = document.getElementById(
+        `${correctSpot}-container`
+    );
+    correctContainer.classList.add('face');
+}
 
-    // then use getElementById and the correctSpot string to grab the appropriate container from the DOM
-
-    // then add the .face css class to that element so that the face shows up
-
-    // then if the user guess is correct, increment the correct guesses
-
-    // update the DOM to show the new value of wins, losses and total guesses to the user
+function removeClasses() {
+    treeContainer.classList.remove('face');
+    shedContainer.classList.remove('face');
+    boulderContainer.classList.remove('face');
+    riverContainer.classList.remove('face');
+    roadContainer.classList.remove('face');
 }
